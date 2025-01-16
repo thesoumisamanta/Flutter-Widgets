@@ -11,6 +11,7 @@ import 'package:practice_1/widgets/current_date_time.dart';
 import 'package:practice_1/widgets/grid_layouts.dart';
 import 'package:practice_1/widgets/stack_widgets.dart';
 import 'package:practice_1/widgets/wrap_widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main(List<String> args) {
   runApp(FlutterApp());
@@ -32,7 +33,63 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: RichTextWidget(),
+      home: PositionedWidget(),
+    );
+  }
+}
+
+class PositionedWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Positioned Widget"),
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Colors.blueAccent,
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: Container(
+                height: 100,
+                width: 100,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FontAwesomeFlutter extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Font Awesome"),
+      ),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FaIcon(FontAwesomeIcons.play),
+            SizedBox(
+              width: 10,
+            ),
+            FaIcon(
+              FontAwesomeIcons.amazon,
+              size: 50,
+              color: Colors.blue,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -41,29 +98,32 @@ class RichTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Rich Text Widget"),
-      ),
-      body: RichText(
-        text: TextSpan(
-          style: TextStyle(
-            color: Colors.amber,
-            fontSize: 25
-          ),
-          children: <TextSpan>[
-            TextSpan(text: 'Hello '),
-            TextSpan(text: 'Mr ', style: TextStyle(fontSize: 30, color: Colors.blue)),
-            TextSpan(text: 'Gu', style: TextStyle(fontSize: 40, color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
-          ]
-      ))
-      // Row(
-      //   children: [
-      //     Text("Hello ", style: TextStyle(fontSize: 25, color: Colors.blueGrey, fontWeight: FontWeight.bold),),
-      //     Text("World", style: TextStyle(fontSize: 40, color: Colors.blue, fontWeight: FontWeight.bold),)
-      //   ],
-      // ),
-    );
-
+        appBar: AppBar(
+          title: Text("Rich Text Widget"),
+        ),
+        body: RichText(
+            text: TextSpan(
+                style: TextStyle(color: Colors.amber, fontSize: 25),
+                children: <TextSpan>[
+              TextSpan(text: 'Hello '),
+              TextSpan(
+                  text: 'Mr ',
+                  style: TextStyle(fontSize: 30, color: Colors.blue)),
+              TextSpan(
+                  text: 'Gu',
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic)),
+            ]))
+        // Row(
+        //   children: [
+        //     Text("Hello ", style: TextStyle(fontSize: 25, color: Colors.blueGrey, fontWeight: FontWeight.bold),),
+        //     Text("World", style: TextStyle(fontSize: 40, color: Colors.blue, fontWeight: FontWeight.bold),)
+        //   ],
+        // ),
+        );
   }
 }
 
