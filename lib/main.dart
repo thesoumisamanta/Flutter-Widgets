@@ -32,8 +32,38 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: SizedBoxWidget(),
+      home: RichTextWidget(),
     );
+  }
+}
+
+class RichTextWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Rich Text Widget"),
+      ),
+      body: RichText(
+        text: TextSpan(
+          style: TextStyle(
+            color: Colors.amber,
+            fontSize: 25
+          ),
+          children: <TextSpan>[
+            TextSpan(text: 'Hello '),
+            TextSpan(text: 'Mr ', style: TextStyle(fontSize: 30, color: Colors.blue)),
+            TextSpan(text: 'Gu', style: TextStyle(fontSize: 40, color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
+          ]
+      ))
+      // Row(
+      //   children: [
+      //     Text("Hello ", style: TextStyle(fontSize: 25, color: Colors.blueGrey, fontWeight: FontWeight.bold),),
+      //     Text("World", style: TextStyle(fontSize: 40, color: Colors.blue, fontWeight: FontWeight.bold),)
+      //   ],
+      // ),
+    );
+
   }
 }
 
@@ -49,13 +79,11 @@ class SizedBoxWidget extends StatelessWidget {
           SizedBox(
             width: 200,
             height: 50,
-            child: ElevatedButton(
-              onPressed: (){}, 
-              child: Text("click")),
+            child: ElevatedButton(onPressed: () {}, child: Text("click")),
           ),
           SizedBox.square(
             dimension: 100,
-            child: ElevatedButton(onPressed: (){}, child: Text("Button")),
+            child: ElevatedButton(onPressed: () {}, child: Text("Button")),
           )
         ],
       ),
