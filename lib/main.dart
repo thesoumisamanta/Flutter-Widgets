@@ -10,6 +10,7 @@ import 'package:practice_1/widgets/card_widgets.dart';
 import 'package:practice_1/widgets/current_date_time.dart';
 import 'package:practice_1/widgets/grid_layouts.dart';
 import 'package:practice_1/widgets/stack_widgets.dart';
+import 'package:practice_1/widgets/state_build_class.dart';
 import 'package:practice_1/widgets/wrap_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -33,7 +34,7 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: PositionedWidget(),
+      home: StateBuildClass(),
     );
   }
 }
