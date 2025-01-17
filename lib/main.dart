@@ -5,10 +5,13 @@ import 'package:practice_1/expanded_widget_page.dart';
 import 'package:practice_1/functions/callback_functions.dart';
 import 'package:practice_1/list_view_page.dart';
 import 'package:practice_1/margin_padding.dart';
+import 'package:practice_1/operations/calculator.dart';
 import 'package:practice_1/ui_helper/util.dart';
 import 'package:practice_1/widgets/card_widgets.dart';
 import 'package:practice_1/widgets/current_date_time.dart';
 import 'package:practice_1/widgets/grid_layouts.dart';
+import 'package:practice_1/widgets/mapping_lists.dart';
+import 'package:practice_1/widgets/math_operations.dart';
 import 'package:practice_1/widgets/stack_widgets.dart';
 import 'package:practice_1/widgets/state_build_class.dart';
 import 'package:practice_1/widgets/wrap_widgets.dart';
@@ -34,7 +37,7 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: StateBuildClass(),
+      home: MappingLists(),
     );
   }
 }
