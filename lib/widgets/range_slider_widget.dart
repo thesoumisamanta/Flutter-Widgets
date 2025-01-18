@@ -24,6 +24,8 @@ class _RangeSliderWidgetState extends State<RangeSliderWidget> {
                   values: values,
                   labels: labels,
                   divisions: 10,
+                  activeColor: Colors.green,
+                  inactiveColor: Colors.green[200],
                   min: 0,
                   max: 10,
                   onChanged: (newValue) {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:practice_1/widgets/circular_avatar.dart';
 import 'package:practice_1/customs/rounded_button.dart';
+import 'package:practice_1/widgets/clip_rrect_widget.dart';
 import 'package:practice_1/widgets/expanded_widget_page.dart';
 import 'package:practice_1/flutter_app/bmi_app.dart';
 import 'package:practice_1/functions/callback_functions.dart';
 import 'package:practice_1/dart_model/model_classes.dart';
+import 'package:practice_1/widgets/gradient_background.dart';
 import 'package:practice_1/widgets/list_view_page.dart';
 import 'package:practice_1/widgets/margin_padding.dart';
 import 'package:practice_1/flutter_app/calculator.dart';
@@ -43,7 +45,7 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: ModelClasses(),
+      home: ClipRrectWidget(),
     );
   }
 }
