@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practice_1/list_view_page.dart';
+import 'package:practice_1/widgets/list_view_page.dart';
 
 class MarginPadding extends StatelessWidget {
   @override
