@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice_1/animation/animated_container_widget.dart';
 import 'package:practice_1/widgets/circular_avatar.dart';
 import 'package:practice_1/customs/rounded_button.dart';
 import 'package:practice_1/widgets/clip_rrect_widget.dart';
@@ -45,7 +46,7 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: ClipRrectWidget(),
+      home: AnimatedContainerWidget(),
     );
   }
 }
