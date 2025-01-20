@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:practice_1/dart_model/complex_data_model.dart';
-import 'package:practice_1/dart_model/custom_data_model.dart';
+import 'package:practice_1/models/complex_data_model.dart';
+import 'package:practice_1/models/custom_data_model.dart';
 
 class ModelClasses extends StatelessWidget {
   List<String> employees = [

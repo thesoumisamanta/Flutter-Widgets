@@ -7,12 +7,14 @@ class AnimatedContainerWidget extends StatefulWidget {
 }
 
 class _AnimatedContainerWidgetState extends State<AnimatedContainerWidget> {
-  var _height = 200.0;
-  var _width = 100.0;
+  var _height = 100.0;
+  var _width = 200.0;
   bool flag = true;
   // Color bgColor = Colors.blue;
-  Decoration decor = BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: Colors.blue);
+  Decoration decor =
+      BoxDecoration(borderRadius: BorderRadius.circular(0), color: Colors.blue);
+  String structName = "Rectangle";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +25,22 @@ class _AnimatedContainerWidgetState extends State<AnimatedContainerWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedContainer(
-                  width: _width,
-                  height: _height,
-                  // color: bgColor,
-                  duration: Duration(seconds: 2),
-                  decoration: decor),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  AnimatedContainer(
+                      width: _width,
+                      height: _height,
+                      // color: bgColor,
+                      duration: Duration(seconds: 2),
+                      curve: Curves.easeInOut,
+                      decoration: decor),
+                  Text(
+                    structName,
+                    style: TextStyle(color: Colors.white, fontSize: 25),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: 10,
               ),
@@ -37,18 +49,20 @@ class _AnimatedContainerWidgetState extends State<AnimatedContainerWidget> {
                     setState(() {
                       if (flag) {
                         _width = 200.0;
-                        _height = 100.0;
+                        _height = 200.0;
                         flag = false;
+                        structName = "Circle";
                         decor = BoxDecoration(
                             color: Colors.blueGrey,
-                            borderRadius: BorderRadius.circular(20));
+                            borderRadius: BorderRadius.circular(100));
                       } else {
-                        _width = 100.0;
-                        _height = 200.0;
+                        _width = 200.0;
+                        _height = 100.0;
                         flag = true;
+                        structName = "Rectangle";
                         decor = BoxDecoration(
                             color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10));
+                            borderRadius: BorderRadius.circular(20));
                       }
                     });
                   },
