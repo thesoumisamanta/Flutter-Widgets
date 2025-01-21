@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:practice_1/animation/animated_container_widget.dart';
+import 'package:practice_1/animation/cross_fade_animated_framework.dart';
+import 'package:practice_1/animation/hero_animation_widget.dart';
+import 'package:practice_1/animation/tween_animations.dart';
 import 'package:practice_1/pages/drag_and_drop_image.dart';
+import 'package:practice_1/pages/product_details.dart';
 import 'package:practice_1/widgets/circular_avatar.dart';
 import 'package:practice_1/customs/rounded_button.dart';
 import 'package:practice_1/widgets/clip_rrect_widget.dart';
@@ -10,6 +14,7 @@ import 'package:practice_1/functions/callback_functions.dart';
 import 'package:practice_1/models/model_classes.dart';
 import 'package:practice_1/widgets/gradient_background.dart';
 import 'package:practice_1/widgets/list_view_page.dart';
+import 'package:practice_1/widgets/list_wheel_scroll_view_widget.dart';
 import 'package:practice_1/widgets/margin_padding.dart';
 import 'package:practice_1/flutter_app/calculator.dart';
 import 'package:practice_1/pages/login_page.dart';
@@ -47,7 +52,7 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: DragAndDropImage(),
+      home: TweenAnimations(),
     );
   }
 }
