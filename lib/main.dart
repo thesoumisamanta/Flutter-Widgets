@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:practice_1/animation/animated_container_widget.dart';
 import 'package:practice_1/animation/cross_fade_animated_framework.dart';
 import 'package:practice_1/animation/hero_animation_widget.dart';
+import 'package:practice_1/animation/ripple_effect_animation.dart';
 import 'package:practice_1/animation/tween_animations.dart';
 import 'package:practice_1/pages/drag_and_drop_image.dart';
 import 'package:practice_1/pages/product_details.dart';
@@ -52,7 +53,7 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: TweenAnimations(),
+      home: RippleEffectAnimation(),
     );
   }
 }
