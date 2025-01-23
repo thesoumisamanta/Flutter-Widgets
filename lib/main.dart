@@ -4,6 +4,7 @@ import 'package:practice_1/animation/cross_fade_animated_framework.dart';
 import 'package:practice_1/animation/hero_animation_widget.dart';
 import 'package:practice_1/animation/ripple_effect_animation.dart';
 import 'package:practice_1/animation/tween_animations.dart';
+import 'package:practice_1/layouts/complex_layout.dart';
 import 'package:practice_1/pages/drag_and_drop_image.dart';
 import 'package:practice_1/shopping_app/product_details.dart';
 import 'package:practice_1/widgets/circular_avatar.dart';

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:practice_1/shopping_app/custom_add_button.dart';
 import 'package:practice_1/shopping_app/custom_text_field.dart';
 import 'package:practice_1/shopping_app/product_card.dart';
+import 'package:practice_1/shopping_app/wishlist_page.dart';
 
 class Product {
   String id;
@@ -88,7 +88,6 @@ class _ProductDetailsState extends State<ProductDetails> {
       for (var entry in allData.entries) {
         if (entry.key.startsWith('product_')) {
           try {
-
             final Map<String, dynamic> productMap =
                 Map<String, String>.from(json.decode(entry.value));
 
@@ -99,7 +98,6 @@ class _ProductDetailsState extends State<ProductDetails> {
               isWishlisted: productMap['isWishlisted'] == 'true',
               isInCart: productMap['isInCart'] == 'true',
             );
-
 
             if (await product.image.exists()) {
               loadedProducts.add(product);
@@ -324,7 +322,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
               ],
             ),
-            onPressed: () {},
+            onPressed: () {
+              final wishlistedProducts =
+                  _products.where((product) => product.isWishlisted).toList();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      WishlistPage(wishlistedProducts: wishlistedProducts),
+                ),
+              );
+            },
           ),
           IconButton(
             icon: Stack(

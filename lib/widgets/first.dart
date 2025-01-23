@@ -83,12 +83,14 @@ void main() {
   // print(intern.containsValue("Neel"));
 
   final name = "Soumi";
+  // final names;
+  // const ages;
 
-  // const age = 56;
+  //  age = 56;
 
-  // const rollNo; ---> must be initialiazed within declaration
+  //  rollNo; ---> must be initialiazed within declaration
 
-  // age = 78;  -> can not reassign to constant variable
+  // age = 78;  -> can not reassign to ant variable
 
   // name = "Neel";  --> can not reassign to final variable
 
@@ -98,7 +100,7 @@ void main() {
 
   print(names);
 
-  const employees = ["soumi", "pooja", "neel", "Sourya"];
+  // employees = ["soumi", "pooja", "neel", "Sourya"];
 
   // employees.add("gambu");
 }
