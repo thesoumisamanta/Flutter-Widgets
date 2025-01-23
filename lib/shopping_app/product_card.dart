@@ -10,11 +10,12 @@ class ProductCard extends StatefulWidget {
   final ValueChanged<bool> onCartToggle;
   final bool isWishlisted;
   final bool isInCart;
+  final List<PopupMenuItem<String>>? wishlistMenuOptions;
+  final Function(String)? onPopupMenuSelected;
 
   const ProductCard({
     super.key,
-    required this.productName
-,
+    required this.productName,
     required this.image,
     required this.onEdit,
     required this.onDelete,
@@ -22,6 +23,8 @@ class ProductCard extends StatefulWidget {
     required this.onCartToggle,
     required this.isWishlisted,
     required this.isInCart,
+    this.wishlistMenuOptions,
+    this.onPopupMenuSelected,
   });
 
   @override
@@ -56,19 +59,20 @@ class _ProductCardState extends State<ProductCard> {
                 right: 8.0,
                 child: Row(
                   children: [
-                    // Wishlisting the products
-                    GestureDetector(
-                      onTap: () {
-                        widget.onWishlistToggle(!widget.isWishlisted);
-                      },
-                      child: Icon(
-                        widget.isWishlisted
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: widget.isWishlisted ? Colors.red : Colors.grey,
+                    // Conditionally show wishlist icon (not for wishlist page)
+                    if (!widget.isWishlisted)
+                      GestureDetector(
+                        onTap: () {
+                          widget.onWishlistToggle(!widget.isWishlisted);
+                        },
+                        child: Icon(
+                          widget.isWishlisted
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: widget.isWishlisted ? Colors.red : Colors.grey,
+                        ),
                       ),
-                    ),
-                    // edit and delete
+                    // Popup menu with dynamic options
                     PopupMenuButton<String>(
                       onSelected: (value) {
                         switch (value) {
@@ -89,23 +93,34 @@ class _ProductCardState extends State<ProductCard> {
                               ),
                             );
                             break;
+                          // Custom wishlist page menu options
+                          default:
+                            if (widget.onPopupMenuSelected != null) {
+                              widget.onPopupMenuSelected!(value);
+                            }
                         }
                       },
                       itemBuilder: (context) => [
-                        PopupMenuItem(
-                          value: 'edit',
-                          child: Text('Edit'),
-                        ),
-                        PopupMenuItem(
-                          value: 'delete',
-                          child: Text('Delete'),
-                        ),
-                        PopupMenuItem(
-                          value: 'cart',
-                          child: Text(widget.isInCart 
-                              ? 'Remove from Cart' 
-                              : 'Add to Cart'),
-                        ),
+                        // Default menu items
+                        if (!widget.isWishlisted) ...[
+                          PopupMenuItem(
+                            value: 'edit',
+                            child: Text('Edit'),
+                          ),
+                          PopupMenuItem(
+                            value: 'delete',
+                            child: Text('Delete'),
+                          ),
+                          PopupMenuItem(
+                            value: 'cart',
+                            child: Text(widget.isInCart 
+                                ? 'Remove from Cart' 
+                                : 'Add to Cart'),
+                          ),
+                        ],
+                        // Custom wishlist page menu items
+                        if (widget.wishlistMenuOptions != null)
+                          ...widget.wishlistMenuOptions!,
                       ],
                     ),
                     SizedBox(width: 8.0),
@@ -118,8 +133,7 @@ class _ProductCardState extends State<ProductCard> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              widget.productName
-          ,
+              widget.productName,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),

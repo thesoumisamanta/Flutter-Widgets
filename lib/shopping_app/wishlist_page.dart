@@ -4,17 +4,36 @@ import 'dart:io';
 
 import 'product_card.dart';
 
-class WishlistPage extends StatelessWidget {
+class WishlistPage extends StatefulWidget {
   final List<Product> wishlistedProducts;
+  final Function(Product) onRemoveFromWishlist;
+  final Function(Product) onMoveToCart;
 
-  const WishlistPage({Key? key, required this.wishlistedProducts})
-      : super(key: key);
+  const WishlistPage({
+    Key? key, 
+    required this.wishlistedProducts,
+    required this.onRemoveFromWishlist,
+    required this.onMoveToCart,
+  }) : super(key: key);
+
+  @override
+  _WishlistPageState createState() => _WishlistPageState();
+}
+
+class _WishlistPageState extends State<WishlistPage> {
+  late List<Product> _wishlistedProducts;
+
+  @override
+  void initState() {
+    super.initState();
+    _wishlistedProducts = List.from(widget.wishlistedProducts);
+  }
 
   @override
   Widget build(BuildContext context) {
-    int itemsToShow = 5; // Increase to show 5 wishlist items
-    int extraItems = wishlistedProducts.length > itemsToShow 
-        ? wishlistedProducts.length - itemsToShow 
+    int itemsToShow = 5;
+    int extraItems = _wishlistedProducts.length > itemsToShow 
+        ? _wishlistedProducts.length - itemsToShow 
         : 0;
 
     return Scaffold(
@@ -33,18 +52,18 @@ class WishlistPage extends StatelessWidget {
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Two items per row
+                  crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 0.7, // Adjusted to prevent bottom overflow
+                  childAspectRatio: 0.7,
                 ),
-                itemCount: wishlistedProducts.length > itemsToShow
+                itemCount: _wishlistedProducts.length > itemsToShow
                     ? itemsToShow + 1
-                    : wishlistedProducts.length,
+                    : _wishlistedProducts.length,
                 itemBuilder: (context, index) {
                   // Display "+count more" card with last added item
                   if (index == itemsToShow && extraItems > 0) {
-                    final lastAddedItem = wishlistedProducts.last;
+                    final lastAddedItem = _wishlistedProducts.last;
                     return GestureDetector(
                       onTap: () {
                         // Future: Navigate to full wishlist view
@@ -57,7 +76,6 @@ class WishlistPage extends StatelessWidget {
                         child: Stack(
                           fit: StackFit.expand,
                           children: [
-                            // Slightly opaque background image of last added item
                             Opacity(
                               opacity: 0.5,
                               child: ClipRRect(
@@ -68,7 +86,6 @@ class WishlistPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            // "+count more" text
                             Center(
                               child: Text(
                                 '+$extraItems more',
@@ -86,17 +103,39 @@ class WishlistPage extends StatelessWidget {
                   }
 
                   // Display individual product cards for wishlist items
-                  final product = wishlistedProducts[index];
+                  final product = _wishlistedProducts[index];
                   return ProductCard(
                     productName: product.productName,
                     image: product.image,
                     isWishlisted: true,
-                    // isWishlistPage: true, // Add this to show wishlist-specific menu
-                    onWishlistToggle: (bool value) {}, 
-                    onCartToggle: (bool value) {}, 
+                    onWishlistToggle: (bool value) {
+                      // Remove from wishlist
+                      _removeFromWishlist(product);
+                    }, 
+                    onCartToggle: (bool value) {
+                      // Move to cart
+                      _moveToCart(product);
+                    }, 
                     onEdit: () {},
                     onDelete: () {},
                     isInCart: product.isInCart,
+                    wishlistMenuOptions: [
+                      PopupMenuItem(
+                        value: 'remove',
+                        child: Text('Remove'),
+                      ),
+                      PopupMenuItem(
+                        value: 'moveToCart',
+                        child: Text('Move to Cart'),
+                      ),
+                    ],
+                    onPopupMenuSelected: (String value) {
+                      if (value == 'remove') {
+                        _removeFromWishlist(product);
+                      } else if (value == 'moveToCart') {
+                        _moveToCart(product);
+                      }
+                    },
                   );
                 },
               ),
@@ -105,5 +144,19 @@ class WishlistPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _removeFromWishlist(Product product) {
+    setState(() {
+      _wishlistedProducts.remove(product);
+    });
+    widget.onRemoveFromWishlist(product);
+  }
+
+  void _moveToCart(Product product) {
+    setState(() {
+      _wishlistedProducts.remove(product);
+    });
+    widget.onMoveToCart(product);
   }
 }

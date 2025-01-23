@@ -225,6 +225,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           productName: _products[productIndex].productName,
           image: _products[productIndex].image,
           isWishlisted: isWishlisted,
+          isInCart: _products[productIndex].isInCart,
         );
       }
     });
@@ -248,6 +249,28 @@ class _ProductDetailsState extends State<ProductDetails> {
     });
 
     await _saveData();
+  }
+
+  void _navigateToWishlist() {
+    final wishlistedProducts =
+        _products.where((product) => product.isWishlisted).toList();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WishlistPage(
+          wishlistedProducts: wishlistedProducts,
+          onRemoveFromWishlist: (Product product) {
+            // Remove from wishlist
+            _toggleWishlist(product.id, false);
+          },
+          onMoveToCart: (Product product) {
+            // Remove from wishlist and add to cart
+            _toggleWishlist(product.id, false);
+            _toggleCart(product.id, true);
+          },
+        ),
+      ),
+    );
   }
 
   void _showImagePickerBottomSheet() {
@@ -322,17 +345,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
               ],
             ),
-            onPressed: () {
-              final wishlistedProducts =
-                  _products.where((product) => product.isWishlisted).toList();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      WishlistPage(wishlistedProducts: wishlistedProducts),
-                ),
-              );
-            },
+            onPressed: _navigateToWishlist,
           ),
           IconButton(
             icon: Stack(
