@@ -41,18 +41,78 @@ class ComplexLayout extends StatelessWidget {
           ),
           //center top rectangle
           Positioned(
-            left: 80,
-            height: 80,
-            top: 80,
-            right: 80,
-            child: Container(color: Colors.lime,)),
-          //bottom bar
+              left: 80,
+              height: 80,
+              top: 80,
+              right: 80,
+              child: Container(
+                color: Colors.lime,
+              )),
+          //center square box
           Positioned(
+              left: 80,
+              right: 80,
+              top: 180,
+              height: 110,
+              // width: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    color: Colors.green,
+                    width: 110,
+                  ),
+                  Container(
+                    color: Colors.green,
+                    width: 110,
+                  )
+                ],
+              )),
+          //bottom rectangle
+          Positioned(
+              top: 320,
+              left: 80,
+              right: 80,
+              child: Container(
+                color: Colors.orangeAccent,
+                height: 130,
+              )),
+          // bottom square box
+          Positioned(
+            bottom: 80,
             left: 0,
             right: 0,
-            bottom: 0,
-            height: 60,
-            child: Container(color: Colors.amberAccent,))
+            height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                color: Colors.red[200],
+                width: 80,
+              ),
+              Container(
+                color: Colors.red[200],
+                width: 80,
+              ),
+              Container(
+                color: Colors.red[200],
+                width: 80,
+              ),
+              Container(
+                color: Colors.red[200],
+                width: 80,
+              ),
+            ],
+          )),
+          //bottom bar
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 60,
+              child: Container(
+                color: Colors.amberAccent,
+              ))
         ],
       ),
     );
