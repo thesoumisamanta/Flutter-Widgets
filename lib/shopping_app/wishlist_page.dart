@@ -29,6 +29,20 @@ class _WishlistPageState extends State<WishlistPage> {
     _wishlistedProducts = List.from(widget.wishlistedProducts);
   }
 
+  void _removeFromWishlist(Product product) {
+    setState(() {
+      _wishlistedProducts.remove(product);
+    });
+    widget.onRemoveFromWishlist(product);
+  }
+
+  void _moveToCart(Product product) {
+    setState(() {
+      _wishlistedProducts.remove(product);
+    });
+    widget.onMoveToCart(product);
+  }
+
   @override
   Widget build(BuildContext context) {
     int itemsToShow = 5;
@@ -44,10 +58,10 @@ class _WishlistPageState extends State<WishlistPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const Text(
-              "Wishlist",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+            // const Text(
+            //   "Wishlist",
+            //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            // ),
             const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
@@ -55,7 +69,7 @@ class _WishlistPageState extends State<WishlistPage> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 0.7,
+                  childAspectRatio: 0.75,
                 ),
                 itemCount: _wishlistedProducts.length > itemsToShow
                     ? itemsToShow + 1
@@ -136,6 +150,7 @@ class _WishlistPageState extends State<WishlistPage> {
                         _moveToCart(product);
                       }
                     },
+                    hideWishlistIcon: true, 
                   );
                 },
               ),
@@ -146,17 +161,5 @@ class _WishlistPageState extends State<WishlistPage> {
     );
   }
 
-  void _removeFromWishlist(Product product) {
-    setState(() {
-      _wishlistedProducts.remove(product);
-    });
-    widget.onRemoveFromWishlist(product);
-  }
-
-  void _moveToCart(Product product) {
-    setState(() {
-      _wishlistedProducts.remove(product);
-    });
-    widget.onMoveToCart(product);
-  }
+  
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:practice_1/shopping_app/cart_page.dart';
 import 'package:practice_1/shopping_app/custom_add_button.dart';
 import 'package:practice_1/shopping_app/custom_text_field.dart';
 import 'package:practice_1/shopping_app/product_card.dart';
@@ -273,6 +274,23 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
+  void _navigateToCart() {
+    final cartProducts =
+        _products.where((product) => product.isInCart).toList();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CartPage(
+          cartProducts: cartProducts,
+          onRemoveFromCart: (Product product) {
+            // Remove from cart
+            _toggleCart(product.id, false);
+          },
+        ),
+      ),
+    );
+  }
+
   void _showImagePickerBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -369,7 +387,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
               ],
             ),
-            onPressed: () {},
+            onPressed: _navigateToCart,
           ),
         ],
       ),

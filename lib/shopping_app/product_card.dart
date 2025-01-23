@@ -12,6 +12,7 @@ class ProductCard extends StatefulWidget {
   final bool isInCart;
   final List<PopupMenuItem<String>>? wishlistMenuOptions;
   final Function(String)? onPopupMenuSelected;
+  final bool hideWishlistIcon;
 
   const ProductCard({
     super.key,
@@ -25,6 +26,7 @@ class ProductCard extends StatefulWidget {
     required this.isInCart,
     this.wishlistMenuOptions,
     this.onPopupMenuSelected,
+    this.hideWishlistIcon = false,
   });
 
   @override
@@ -41,11 +43,11 @@ class _ProductCardState extends State<ProductCard> {
         children: [
           Stack(
             children: [
-              // Product image 
+              // Product image
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  height: 200,
+                  height: 180,
                   width: double.infinity,
                   child: Image.file(
                     widget.image,
@@ -60,7 +62,8 @@ class _ProductCardState extends State<ProductCard> {
                 child: Row(
                   children: [
                     // Conditionally show wishlist icon (not for wishlist page)
-                    if (!widget.isWishlisted)
+                    // Conditionally show wishlist icon (not for wishlist page)
+                    if (!widget.hideWishlistIcon)
                       GestureDetector(
                         onTap: () {
                           widget.onWishlistToggle(!widget.isWishlisted);
@@ -86,14 +89,13 @@ class _ProductCardState extends State<ProductCard> {
                             widget.onCartToggle(!widget.isInCart);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(widget.isInCart 
-                                    ? 'Removed from cart' 
+                                content: Text(widget.isInCart
+                                    ? 'Removed from cart'
                                     : 'Added to cart'),
                                 duration: Duration(seconds: 2),
                               ),
                             );
                             break;
-                          // Custom wishlist page menu options
                           default:
                             if (widget.onPopupMenuSelected != null) {
                               widget.onPopupMenuSelected!(value);
@@ -101,8 +103,8 @@ class _ProductCardState extends State<ProductCard> {
                         }
                       },
                       itemBuilder: (context) => [
-                        // Default menu items
-                        if (!widget.isWishlisted) ...[
+                        // Always show these menu items
+                        if (!widget.hideWishlistIcon) ...[
                           PopupMenuItem(
                             value: 'edit',
                             child: Text('Edit'),
@@ -113,12 +115,11 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                           PopupMenuItem(
                             value: 'cart',
-                            child: Text(widget.isInCart 
-                                ? 'Remove from Cart' 
+                            child: Text(widget.isInCart
+                                ? 'Remove from Cart'
                                 : 'Add to Cart'),
                           ),
                         ],
-                        // Custom wishlist page menu items
                         if (widget.wishlistMenuOptions != null)
                           ...widget.wishlistMenuOptions!,
                       ],

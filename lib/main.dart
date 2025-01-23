@@ -54,7 +54,7 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: ProductDetails(),
+      home: ComplexLayout(),
     );
   }
 }
