@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:practice_1/shopping_app/cart_page.dart';
-import 'package:practice_1/shopping_app/custom_add_button.dart';
-import 'package:practice_1/shopping_app/custom_text_field.dart';
-import 'package:practice_1/shopping_app/product_card.dart';
-import 'package:practice_1/shopping_app/wishlist_page.dart';
+import 'package:practice_1/product_mart/cart_page.dart';
+import 'package:practice_1/product_mart/custom_add_button.dart';
+import 'package:practice_1/product_mart/custom_text_field.dart';
+import 'package:practice_1/product_mart/product_card.dart';
+import 'package:practice_1/product_mart/wishlist_page.dart';
 
 class Product {
   String id;

@@ -6,7 +6,7 @@ import 'package:practice_1/animation/ripple_effect_animation.dart';
 import 'package:practice_1/animation/tween_animations.dart';
 import 'package:practice_1/layouts/complex_layout.dart';
 import 'package:practice_1/pages/drag_and_drop_image.dart';
-import 'package:practice_1/shopping_app/product_details.dart';
+import 'package:practice_1/shopping_app/home_page.dart';
 import 'package:practice_1/widgets/circular_avatar.dart';
 import 'package:practice_1/customs/rounded_button.dart';
 import 'package:practice_1/widgets/clip_rrect_widget.dart';
@@ -33,9 +33,12 @@ import 'package:practice_1/widgets/stack_widgets.dart';
 import 'package:practice_1/widgets/state_build_class.dart';
 import 'package:practice_1/widgets/wrap_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 void main(List<String> args) {
-  runApp(FlutterApp());
+  runApp(
+    FlutterApp()
+  );
 }
 
 class FlutterApp extends StatelessWidget {
@@ -54,7 +57,7 @@ class FlutterApp extends StatelessWidget {
                   TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               titleSmall:
                   TextStyle(fontSize: 15, fontWeight: FontWeight.w500))),
-      home: ComplexLayout(),
+      home: ProductDetails(),
     );
   }
 }

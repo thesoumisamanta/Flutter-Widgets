@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:practice_1/shopping_app/cart_items.dart';
-import 'package:practice_1/shopping_app/home_page.dart';
 import 'dart:io';
+
+import 'package:practice_1/product_mart/product_details.dart';
 
 class CartPage extends StatefulWidget {
   final List<Product> cartProducts;
@@ -35,7 +35,7 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    int itemsToShow = 3;
+    int itemsToShow = 5;
     int extraItems = _cartProducts.length > itemsToShow 
         ? _cartProducts.length - itemsToShow 
         : 0;
@@ -70,15 +70,7 @@ class _CartPageState extends State<CartPage> {
                     final lastAddedItem = _cartProducts.last;
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CartItems(
-                        cartProducts: _cartProducts,
-                        onRemoveFromCart: _removeFromCart,
-                      ),
-                    ),
-                  );
+                        // Future: Navigate to full cart view
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -92,8 +84,8 @@ class _CartPageState extends State<CartPage> {
                               opacity: 0.5,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  lastAddedItem.imageUrl,
+                                child: Image.file(
+                                  lastAddedItem.image,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -130,8 +122,8 @@ class _CartPageState extends State<CartPage> {
                                 child: Container(
                                   height: 200,
                                   width: double.infinity,
-                                  child: Image.network(
-                                    product.imageUrl,
+                                  child: Image.file(
+                                    product.image,
                                     fit: BoxFit.cover,
                                   ),
                                 ),

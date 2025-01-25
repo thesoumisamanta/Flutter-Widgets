@@ -1,33 +1,34 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:practice_1/shopping_app/home_page.dart';
 
 class ProductCard extends StatefulWidget {
   final String productName;
-  final File image;
-  final VoidCallback onEdit;
-  final VoidCallback onDelete;
+  final String imageUrl;
   final ValueChanged<bool> onWishlistToggle;
   final ValueChanged<bool> onCartToggle;
   final bool isWishlisted;
   final bool isInCart;
-  final List<PopupMenuItem<String>>? wishlistMenuOptions;
-  final Function(String)? onPopupMenuSelected;
   final bool hideWishlistIcon;
+  final VoidCallback onTap;
+  final Function(Product)? onRemoveFromWishlist;
+  final Function(Product)? onMoveToCart;
+  final Function(Product)? onRemoveFromCart;
+  
 
   const ProductCard({
-    super.key,
+    Key? key,
     required this.productName,
-    required this.image,
-    required this.onEdit,
-    required this.onDelete,
+    required this.imageUrl,
     required this.onWishlistToggle,
     required this.onCartToggle,
     required this.isWishlisted,
     required this.isInCart,
-    this.wishlistMenuOptions,
-    this.onPopupMenuSelected,
     this.hideWishlistIcon = false,
-  });
+    required this.onTap,
+    this.onRemoveFromWishlist,
+    this.onMoveToCart,
+    this.onRemoveFromCart,
+  }) : super(key: key);
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -36,110 +37,105 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Stack(
+    return SizedBox(
+      width: 150,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Product image
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 180,
-                  width: double.infinity,
-                  child: Image.file(
-                    widget.image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              // Three-dot menu and wishlist icon
-              Positioned(
-                top: 8.0,
-                right: 8.0,
-                child: Row(
+              AspectRatio(
+                aspectRatio: 1,
+                child: Stack(
+                  fit: StackFit.expand,
                   children: [
-                    // Conditionally show wishlist icon (not for wishlist page)
-                    // Conditionally show wishlist icon (not for wishlist page)
+                    SizedBox(
+                      height: 150,
+                      width: 100,
+                      child: Image.network(
+                        widget.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     if (!widget.hideWishlistIcon)
-                      GestureDetector(
-                        onTap: () {
-                          widget.onWishlistToggle(!widget.isWishlisted);
-                        },
-                        child: Icon(
-                          widget.isWishlisted
-                              ? Icons.favorite
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: GestureDetector(
+                          onTap: () => widget.onWishlistToggle(!widget.isWishlisted),
+                          child: Icon(
+                            widget.isWishlisted 
+                              ? Icons.favorite 
                               : Icons.favorite_border,
-                          color: widget.isWishlisted ? Colors.red : Colors.grey,
+                            color: widget.isWishlisted ? Colors.red : Colors.grey,
+                          ),
                         ),
                       ),
-                    // Popup menu with dynamic options
-                    PopupMenuButton<String>(
-                      onSelected: (value) {
-                        switch (value) {
-                          case 'edit':
-                            widget.onEdit();
-                            break;
-                          case 'delete':
-                            widget.onDelete();
-                            break;
-                          case 'cart':
-                            widget.onCartToggle(!widget.isInCart);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(widget.isInCart
-                                    ? 'Removed from cart'
-                                    : 'Added to cart'),
-                                duration: Duration(seconds: 2),
-                              ),
-                            );
-                            break;
-                          default:
-                            if (widget.onPopupMenuSelected != null) {
-                              widget.onPopupMenuSelected!(value);
+                    // More Options Menu
+                    if (widget.onRemoveFromWishlist != null || widget.onMoveToCart != null)
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: PopupMenuButton<String>(
+                          onSelected: (value) {
+                            if (value == 'remove' && widget.onRemoveFromWishlist != null) {
+                              widget.onRemoveFromWishlist!(
+                                Product(
+                                  id: '',
+                                  productName: widget.productName,
+                                  imageUrl: widget.imageUrl,
+                                  isWishlisted: widget.isWishlisted,
+                                  isInCart: widget.isInCart,
+                                )
+                              );
+                            } else if (value == 'moveToCart' && widget.onMoveToCart != null) {
+                              widget.onMoveToCart!(
+                                Product(
+                                  id: '',
+                                  productName: widget.productName,
+                                  imageUrl: widget.imageUrl,
+                                  isWishlisted: widget.isWishlisted,
+                                  isInCart: widget.isInCart,
+                                )
+                              );
                             }
-                        }
-                      },
-                      itemBuilder: (context) => [
-                        // Always show these menu items
-                        if (!widget.hideWishlistIcon) ...[
-                          PopupMenuItem(
-                            value: 'edit',
-                            child: Text('Edit'),
-                          ),
-                          PopupMenuItem(
-                            value: 'delete',
-                            child: Text('Delete'),
-                          ),
-                          PopupMenuItem(
-                            value: 'cart',
-                            child: Text(widget.isInCart
-                                ? 'Remove from Cart'
-                                : 'Add to Cart'),
-                          ),
-                        ],
-                        if (widget.wishlistMenuOptions != null)
-                          ...widget.wishlistMenuOptions!,
-                      ],
-                    ),
-                    SizedBox(width: 8.0),
+                          },
+                          itemBuilder: (context) => [
+                            if (widget.onRemoveFromWishlist != null)
+                              const PopupMenuItem(
+                                value: 'remove',
+                                child: Text('Remove'),
+                              ),
+                            if (widget.onMoveToCart != null)
+                              const PopupMenuItem(
+                                value: 'moveToCart',
+                                child: Text('Move to Cart'),
+                              ),
+                          ],
+                          icon: const Icon(Icons.more_vert),
+                        ),
+                      ),
                   ],
+                ),
+              ),
+              
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  widget.productName,
+                  style: const TextStyle(
+                    fontSize: 14, 
+                    fontWeight: FontWeight.bold
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
           ),
-          // Product name
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              widget.productName,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
