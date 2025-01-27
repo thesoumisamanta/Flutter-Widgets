@@ -15,6 +15,8 @@ class Product {
   final String id;
   final String productName;
   final String imageUrl;
+  final double? price;
+  final String? description;
   bool isWishlisted;
   bool isInCart;
 
@@ -22,6 +24,8 @@ class Product {
     required this.id,
     required this.productName,
     required this.imageUrl,
+    this.price,
+    this.description,
     this.isWishlisted = false,
     this.isInCart = false,
   });
@@ -31,6 +35,8 @@ class Product {
       id: json['id'].toString(),
       productName: json['title'],
       imageUrl: json['image'],
+      price: (json['price'] as num).toDouble(),
+      description: json['description'],
     );
   }
 }
