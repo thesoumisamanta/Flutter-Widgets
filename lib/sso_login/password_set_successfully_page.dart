@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sso_login/login_page.dart';
+import 'package:practice_1/pages/login_page.dart';
 
 class PasswordSetSuccessfullyPage extends StatelessWidget {
   const PasswordSetSuccessfullyPage({super.key});
@@ -98,7 +98,7 @@ class PasswordSetSuccessfullyPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => const LoginPage()));
+                          MaterialPageRoute(builder: (context) => LoginPage()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple,

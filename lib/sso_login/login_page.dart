@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sso_login/reset_password_page.dart';
-import 'package:sso_login/user_registration_page.dart';
+import 'package:practice_1/sso_login/reset_password_page.dart';
+import 'package:practice_1/sso_login/user_registration_page.dart';
 import 'sso_login_page.dart';
 
 class LoginPage extends StatefulWidget {

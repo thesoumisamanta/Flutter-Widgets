@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sso_login/login_page.dart';
+import 'package:practice_1/pages/login_page.dart';
 
 class EnterNewPasswordPage extends StatefulWidget {
   const EnterNewPasswordPage({super.key});
@@ -179,7 +179,7 @@ void _showPasswordSetSuccessfullyPopup(BuildContext context) {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginPage()));
+                            builder: (context) => LoginPage()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sso_login/enter_new_password_page.dart';
-import 'package:sso_login/user_registration_page.dart';
+import 'package:practice_1/sso_login/enter_new_password_page.dart';
+import 'package:practice_1/sso_login/user_registration_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key});
