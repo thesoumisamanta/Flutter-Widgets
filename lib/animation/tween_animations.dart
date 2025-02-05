@@ -19,7 +19,8 @@ class _TwinAnimationsState extends State<TweenAnimations>
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 20));
     animation = Tween(begin: 0.0, end: 300.0).animate(animationController);
-    colorAnimation = Tween(begin: Colors.red, end: Colors.yellow).animate(animationController);
+    colorAnimation = Tween(begin: Colors.red, end: Colors.yellow)
+        .animate(animationController);
 
     animationController.addListener(() {
       // print(animation.value);
@@ -33,7 +34,7 @@ class _TwinAnimationsState extends State<TweenAnimations>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Twin Animations"),
+        title: Text("Tween Animations"),
       ),
       body: Center(
           child: Container(
